@@ -45,7 +45,6 @@ function listings(response) {
             timestamp: timestamp,
             event: details.EventName,
             eventVenue: details.Venue.trim(),
-            eventVenueCity: details.VenueCity,
             eventDate: details.ShowDate,
             eventOnSaleDate: details.OnSaleDate,
 	    id: listing.id,
@@ -59,7 +58,7 @@ function listings(response) {
     })
 }
 
-const headers = [ 'timestamp', 'event', 'eventVenue', 'eventVenueCity', 'eventDate', 'eventOnSaleDate', 'id', 'zone', 'section', 'row', 'quantityTotal', 'quantityEligible', 'price' ]
+const headers = [ 'timestamp', 'event', 'eventVenue', 'eventDate', 'eventOnSaleDate', 'id', 'zone', 'section', 'row', 'quantityTotal', 'quantityEligible', 'price' ]
 fs.closeSync(fs.openSync('get-me-in.csv', 'a')) // make sure it exists so it can be read
 csvParser(fs.readFileSync('get-me-in.csv'), { headers: headers }, (error, existing) => {
     if (error) throw error
