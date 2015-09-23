@@ -21,7 +21,13 @@ var http = highland.wrapCallback((location, callback) => {
 var timestamp = new Date().toISOString()
 
 var pages = [
-    'http://www.getmein.com/rock-and-pop/little-mix-tickets.html'
+    'http://www.getmein.com/venues/royal-albert-hall.html',
+    'http://www.getmein.com/venues/the-o2.html',
+    'http://www.getmein.com/venues/eventim-apollo.html'
+    'http://www.getmein.com/venues/manchester-arena.html',
+    'http://www.getmein.com/venues/carling-academy-brixton.html',
+    'http://www.getmein.com/venues/shepherds-bush-empire.html',
+    'http://www.getmein.com/venues/wembley-stadium.html'
 ]
 
 function dates(response) {
