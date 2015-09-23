@@ -1,0 +1,12 @@
+{
+    "name": "tickets",
+    "private": true,
+    "dependencies": {
+	"highland": "2.5.x",
+	"request": "2.61.x",
+        "retry-me": "1.0.x",
+	"cheerio": "0.19.x",
+	"csv-write-stream": "1.0.x",
+	"neat-csv": "1.1.x"
+    }
+}
