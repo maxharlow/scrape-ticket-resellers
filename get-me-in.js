@@ -29,6 +29,7 @@ var pages = [
     'http://www.getmein.com/venues/manchester-arena.html',
     'http://www.getmein.com/venues/first-direct-arena.html',
     'http://www.getmein.com/venues/the-sse-arena-wembley.html',
+    'http://www.getmein.com/venues/motorpoint-arena-sheffield.html',
     'http://www.getmein.com/venues/royal-albert-hall.html',
     'http://www.getmein.com/venues/eventim-apollo.html',
     'http://www.getmein.com/venues/carling-academy-brixton.html',
