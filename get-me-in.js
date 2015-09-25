@@ -9,7 +9,7 @@ var fs = require('fs')
 var http = highland.wrapCallback((location, callback) => {
     var wrapper = location => {
         return callbackInner => {
-            request(location, (error, response) => {
+            request.defaults({ jar: true })(location, (error, response) => {
                 var failure = error ? error : (response.statusCode >= 400) ? new Error(response.statusCode) : null
                 callbackInner(failure, response)
             })
@@ -21,13 +21,25 @@ var http = highland.wrapCallback((location, callback) => {
 var timestamp = new Date().toISOString()
 
 var pages = [
-    'http://www.getmein.com/venues/royal-albert-hall.html',
+    'http://www.getmein.com/venues/wembley-stadium.html',
+    'http://www.getmein.com/venues/twickenham-stadium.html',
+    'http://www.getmein.com/venues/millennium-stadium.html',
+    'http://www.getmein.com/venues/hyde-park.html',
     'http://www.getmein.com/venues/the-o2.html',
-    'http://www.getmein.com/venues/eventim-apollo.html'
     'http://www.getmein.com/venues/manchester-arena.html',
+    'http://www.getmein.com/venues/first-direct-arena.html',
+    'http://www.getmein.com/venues/the-sse-arena-wembley.html',
+    'http://www.getmein.com/venues/royal-albert-hall.html',
+    'http://www.getmein.com/venues/eventim-apollo.html',
     'http://www.getmein.com/venues/carling-academy-brixton.html',
+    'http://www.getmein.com/venues/o2-academy-birmingham.html',
     'http://www.getmein.com/venues/shepherds-bush-empire.html',
-    'http://www.getmein.com/venues/wembley-stadium.html'
+    'http://www.getmein.com/venues/o2-apollo.html',
+    'http://www.getmein.com/venues/london-palladium.html',
+    'http://www.getmein.com/venues/royal-opera-house.html',
+    'http://www.getmein.com/venues/royal-festival-hall.html',
+    'http://www.getmein.com/venues/barbican-theatre-london.html',
+    'http://www.getmein.com/venues/coliseum-theatre.html'
 ]
 
 function dates(response) {
@@ -42,20 +54,37 @@ function listings(response) {
     var data = JSON.parse(document('#ticket-listing-json').text()).listings.filter(listing => listing.type === 'Offer')
     return data.map(listing => {
         return {
-            timestamp: timestamp,
-            event: details.EventName,
-            eventVenue: details.Venue.trim(),
-            eventDate: details.ShowDate,
-            eventOnSaleDate: details.OnSaleDate,
-	    id: listing.id,
-            zone: listing.ISMZoneName,
-            section: listing.section,
-            row: listing.row,
-            quantityTotal: listing.inventoryLevel,
-            quantityEligible: listing.eligibleQuantity.toString(),
-            price: listing.priceDisplayCurrency + listing.priceDisplay
-        }
+	    method: 'POST',
+	    url: 'http://' + response.request.host + listing.url,
+	    followAllRedirects: true,
+	    form: {
+		quantity: listing.inventoryLevel,
+		ticketid: listing.id,
+		baseprice: listing.priceDisplay
+	    },
+	    also: {
+		timestamp: timestamp,
+		event: details.EventName,
+		eventVenue: details.Venue.trim(),
+		eventDate: details.ShowDate,
+		eventOnSaleDate: details.OnSaleDate,
+		id: listing.id,
+		zone: listing.ISMZoneName,
+		section: listing.section,
+		row: listing.row,
+		quantityTotal: listing.inventoryLevel,
+		quantityEligible: listing.eligibleQuantity.toString(),
+		price: listing.priceDisplayCurrency + listing.priceDisplay,
+		faceValue: '-' // filled in after
+            }
+	}
     })
+}
+
+function purchase(response) {
+    var listing = response.request.also
+    listing.faceValue = response.body.match(/The original face value price of each ticket is (.*) as indicated by the seller/)[1]
+    return listing
 }
 
 const headers = [ 'timestamp', 'event', 'eventVenue', 'eventDate', 'eventOnSaleDate', 'id', 'zone', 'section', 'row', 'quantityTotal', 'quantityEligible', 'price' ]
@@ -67,6 +96,8 @@ csvParser(fs.readFileSync('get-me-in.csv'), { headers: headers }, (error, existi
 	.flatMap(dates)
 	.flatMap(http)
 	.flatMap(listings)
+	.flatMap(http)
+	.map(purchase)
 	.filter(listing => existing.map(e => e.id).indexOf(listing.id) < 0)
 	.errors(e => console.log('Error: ' + e.message))
 	.through(csvWriter({ sendHeaders: false }))
