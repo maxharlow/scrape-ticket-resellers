@@ -21,13 +21,27 @@ var http = highland.wrapCallback((location, callback) => {
 var timestamp = new Date().toISOString()
 
 var pages = [
-    'https://www.stubhub.co.uk/london-royal-albert-hall-tickets/',
+    'https://www.stubhub.co.uk/wembley-stadium-tickets/',
+    'https://www.stubhub.co.uk/twickenham-stadium-tickets/',
+    'https://www.stubhub.co.uk/millenium-centre-tickets/',
+    'https://www.stubhub.co.uk/hyde-park-tickets/',
     'https://www.stubhub.co.uk/the-o2-tickets/',
-    'https://www.stubhub.co.uk/eventim-apollo-tickets/',
     'https://www.stubhub.co.uk/phones-4u-arena-manchester-tickets/',
+    'https://www.stubhub.co.uk/first-direct-arena-tickets/',
+    'https://www.stubhub.co.uk/wembley-stadium-tickets/',
+    'https://www.stubhub.co.uk/motorpoint-arena-sheffield-tickets/',
+    'https://www.stubhub.co.uk/sse-hydro-arena-glasgow-tickets/',
+    'https://www.stubhub.co.uk/london-royal-albert-hall-tickets/',
+    'https://www.stubhub.co.uk/eventim-apollo-tickets/',
     'https://www.stubhub.co.uk/o2-academy-brixton-tickets/',
+    'https://www.stubhub.co.uk/o2-academy-birmingham-tickets/',
     'https://www.stubhub.co.uk/o2-shepherds-bush-empire-tickets/',
-    'https://www.stubhub.co.uk/wembley-stadium-tickets/'
+    'https://www.stubhub.co.uk/o2-apollo-manchester-tickets/',
+    'https://www.stubhub.co.uk/london-palladium-tickets/',
+    'https://www.stubhub.co.uk/royal-opera-house-tickets/',
+    'https://www.stubhub.co.uk/royal-festival-hall-tickets/',
+    'https://www.stubhub.co.uk/barbican-hall-london-tickets/',
+    'https://www.stubhub.co.uk/london-coliseum-tickets/'
 ]
 
 function dates(response) {
