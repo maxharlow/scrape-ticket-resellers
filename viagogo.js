@@ -87,6 +87,7 @@ function listings(response) {
 function purchase(response) {
     var document = cheerio.load(response.body)
     var listing = response.request.also
+    if (!!response.request.href.match(/Abandon/g)) throw new Error('Abandoned - ' + document('h4').text())
     listing.faceValue = document('.pipelinesidebar').text().trim().match(/\r\n(.*)/)[1]
     return listing
 }
