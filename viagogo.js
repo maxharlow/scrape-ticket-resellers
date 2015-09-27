@@ -69,7 +69,7 @@ function listings(response) {
 		timestamp: new Date().toISOString(),
 		event: document('h1').text(),
 		eventVenue: document('.cMgry').text(),
-		eventDate: new Date(document('.dbk .DD').text() + '/' + document('.dbk .mm').text() + '/' + document('.bcrmb span').text().split('/')[2] + ' ' + document('.dbk .cLgry').text()).toISOString(),
+		eventDate: document('.dbk').get().length === 0 ? document('.bk.cMgry').text() : new Date(document('.dbk .DD').text() + '/' + document('.dbk .mm').text() + '/' + document('.bcrmb span').text().split('/')[2] + ' ' + document('.dbk .cLgry').text()).toISOString(),
 		eventOnSaleDate: '(not listed)',
 		id: listingData('.js-buy-button').attr('href').match(/ListingID=(.*)&/)[1],
 		zone: zones[listingData('.mapColor').attr('class').split(' ')[0]],
