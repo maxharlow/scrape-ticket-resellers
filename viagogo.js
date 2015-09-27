@@ -95,6 +95,7 @@ const headers = [ 'timestamp', 'event', 'eventVenue', 'eventDate', 'eventOnSaleD
 fs.closeSync(fs.openSync('viagogo.csv', 'a')) // make sure it exists so it can be read
 csvParser(fs.readFileSync('viagogo.csv'), { headers: headers }, (error, existing) => {
     if (error) throw error
+    const existingIDs = existing.map(e => e.id)
     highland(pages)
 	.flatMap(http)
 	.flatMap(dates)
@@ -104,7 +105,7 @@ csvParser(fs.readFileSync('viagogo.csv'), { headers: headers }, (error, existing
 	.flatMap(listings)
 	.flatMap(http)
 	.map(purchase)
-	.filter(listing => existing.map(e => e.id).indexOf(listing.id) < 0)
+	.filter(listing => existingIDs.indexOf(listing.id) < 0)
 	.errors(e => console.log('Error: ' + e.message))
 	.through(csvWriter({ sendHeaders: false }))
 	.pipe(fs.createWriteStream('viagogo.csv', { flags: 'a' }))
