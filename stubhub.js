@@ -10,6 +10,7 @@ var http = highland.wrapCallback((location, callback) => {
     var wrapper = location => {
         return callbackInner => {
             request(location, (error, response) => {
+		if (response.statusCode === 416) throw new Error('Being blocked!')
                 var failure = error ? error : (response.statusCode >= 400) ? new Error(response.statusCode) : null
                 callbackInner(failure, response)
             })
@@ -42,6 +43,17 @@ var pages = [
     'https://www.stubhub.co.uk/london-coliseum-tickets/'
 ]
 
+var agent = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.99 Safari/537.36'
+}
+
+function fakeUserAgent(uri) {
+    return {
+	uri: uri,
+	headers: agent
+    }
+}
+
 function dates(response) {
     console.log('Stubhub: ' + new Date().toISOString() + ' - running ' + response.request.href + '...')
     var document = cheerio.load(response.body)
@@ -51,6 +63,7 @@ function dates(response) {
 	return {
 	    gzip: true,
 	    uri: 'https://www.stubhub.co.uk/ticketAPI/restSvc/event/' + id,
+	    headers: agent,
 	    also: location
 	}
     })
@@ -61,6 +74,7 @@ function listings(response) {
     return event.eventTicket.map(listing => {
         return {
 	    uri: response.request.also + '?ticket_id=' + listing.id,
+	    headers: agent,
 	    also: {
 		timestamp: new Date().toISOString(),
 		event: '-', // filled in after
@@ -95,6 +109,7 @@ fs.closeSync(fs.openSync('stubhub.csv', 'a')) // make sure it exists so it can b
 csvParser(fs.readFileSync('stubhub.csv'), { headers: headers }, (error, existing) => {
     if (error) throw error
     highland(pages)
+	.map(fakeUserAgent)
 	.flatMap(http)
 	.flatMap(dates)
 	.flatMap(http)
