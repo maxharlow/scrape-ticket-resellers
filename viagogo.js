@@ -21,27 +21,27 @@ var http = highland.wrapCallback((location, callback) => {
 var timestamp = new Date().toISOString()
 
 var pages = [
-    // 'http://www.viagogo.co.uk/London/Wembley-Stadium-Tickets/_V-468',
-    // 'http://www.viagogo.co.uk/London/Twickenham-Stadium-Tickets/_V-144',
-    // 'http://www.viagogo.co.uk/Cardiff/Millennium-Stadium-Tickets/_V-143',
-    // 'http://www.viagogo.co.uk/London/Hyde-Park-Tickets/_V-278',
-    // 'http://www.viagogo.co.uk/London/The-O2-arena-Tickets/_V-1364',
-    // 'http://www.viagogo.co.uk/Manchester/Manchester-Arena-Tickets/_V-841',
-    // 'http://www.viagogo.co.uk/Leeds/First-Direct-Arena-Tickets/_V-18370',
-    // 'http://www.viagogo.co.uk/London/Wembley-Stadium-Tickets/_V-468',
-    // 'http://www.viagogo.co.uk/Cardiff/Motorpoint-Arena-Cardiff-Tickets/_V-190',
-    // 'http://www.viagogo.co.uk/Glasgow/Hydro-Tickets/_V-18244',
-    // 'http://www.viagogo.co.uk/London/Royal-Albert-Hall-Tickets/_V-438',
-    'http://www.viagogo.co.uk/London/Eventim-Apollo-Tickets/_V-818'
-    // 'http://www.viagogo.co.uk/London/O2-Academy-Brixton-Tickets/_V-1148',
-    // 'http://www.viagogo.co.uk/Birmingham/O2-Academy-Birmingham-Tickets/_V-191',
-    // 'http://www.viagogo.co.uk/London/O2-Shepherds-Bush-Empire-Shepherds-Bush-Empire-Tickets/_V-400',
-    // 'http://www.viagogo.co.uk/Manchester/O2-Apollo-Manchester-Tickets/_V-844',
-    // 'http://www.viagogo.co.uk/West-End/London-Palladium-Tickets/_V-306',
-    // 'http://www.viagogo.co.uk/West-End/Royal-Opera-House-Tickets/_V-391',
-    // 'http://www.viagogo.co.uk/West-End/Royal-Festival-Hall-Tickets/_V-388',
-    // 'http://www.viagogo.co.uk/London/Barbican-Centre-Tickets/_V-164',
-    // 'http://www.viagogo.co.uk/Manchester/Oldham-Coliseum-Theatre-Tickets/_V-21277'
+    'http://www.viagogo.co.uk/London/Wembley-Stadium-Tickets/_V-468',
+    'http://www.viagogo.co.uk/London/Twickenham-Stadium-Tickets/_V-144',
+    'http://www.viagogo.co.uk/Cardiff/Millennium-Stadium-Tickets/_V-143',
+    'http://www.viagogo.co.uk/London/Hyde-Park-Tickets/_V-278',
+    'http://www.viagogo.co.uk/London/The-O2-arena-Tickets/_V-1364',
+    'http://www.viagogo.co.uk/Manchester/Manchester-Arena-Tickets/_V-841',
+    'http://www.viagogo.co.uk/Leeds/First-Direct-Arena-Tickets/_V-18370',
+    'http://www.viagogo.co.uk/London/Wembley-Stadium-Tickets/_V-468',
+    'http://www.viagogo.co.uk/Cardiff/Motorpoint-Arena-Cardiff-Tickets/_V-190',
+    'http://www.viagogo.co.uk/Glasgow/Hydro-Tickets/_V-18244',
+    'http://www.viagogo.co.uk/London/Royal-Albert-Hall-Tickets/_V-438',
+    'http://www.viagogo.co.uk/London/Eventim-Apollo-Tickets/_V-818',
+    'http://www.viagogo.co.uk/London/O2-Academy-Brixton-Tickets/_V-1148',
+    'http://www.viagogo.co.uk/Birmingham/O2-Academy-Birmingham-Tickets/_V-191',
+    'http://www.viagogo.co.uk/London/O2-Shepherds-Bush-Empire-Shepherds-Bush-Empire-Tickets/_V-400',
+    'http://www.viagogo.co.uk/Manchester/O2-Apollo-Manchester-Tickets/_V-844',
+    'http://www.viagogo.co.uk/West-End/London-Palladium-Tickets/_V-306',
+    'http://www.viagogo.co.uk/West-End/Royal-Opera-House-Tickets/_V-391',
+    'http://www.viagogo.co.uk/West-End/Royal-Festival-Hall-Tickets/_V-388',
+    'http://www.viagogo.co.uk/London/Barbican-Centre-Tickets/_V-164',
+    'http://www.viagogo.co.uk/Manchester/Oldham-Coliseum-Theatre-Tickets/_V-21277'
 ]
 
 function dates(response) {
