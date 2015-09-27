@@ -106,7 +106,7 @@ csvParser(fs.readFileSync('viagogo.csv'), { headers: headers }, (error, existing
 	.flatMap(http)
 	.map(purchase)
 	.filter(listing => existingIDs.indexOf(listing.id) < 0)
-	.errors(e => console.log('Error: ' + e.message))
+	.errors(e => console.log('Error: ' + e.stack))
 	.through(csvWriter({ sendHeaders: false }))
 	.pipe(fs.createWriteStream('viagogo.csv', { flags: 'a' }))
 })
