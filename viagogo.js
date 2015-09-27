@@ -18,8 +18,6 @@ var http = highland.wrapCallback((location, callback) => {
     retryMe(wrapper(location), callback)
 })
 
-var timestamp = new Date().toISOString()
-
 var pages = [
     'http://www.viagogo.co.uk/London/Wembley-Stadium-Tickets/_V-468',
     'http://www.viagogo.co.uk/London/Twickenham-Stadium-Tickets/_V-144',
@@ -45,7 +43,7 @@ var pages = [
 ]
 
 function dates(response) {
-    console.log('Running Viagogo at ' + timestamp + '...')
+    console.log('Viagogo: ' + new Date().toISOString() + ' - running ' + response.request.href + '...')
     var document = cheerio.load(response.body)
     return document('tr .txtr a').get().map(row => 'http://' + response.request.host + cheerio(row).attr('href'))
 }
@@ -68,7 +66,7 @@ function listings(response) {
         return {
 	    uri: listingData('.js-buy-button').attr('href'),
 	    also: {
-		timestamp: timestamp,
+		timestamp: new Date().toISOString(),
 		event: document('h1').text(),
 		eventVenue: document('.cMgry').text(),
 		eventDate: new Date(document('.dbk .DD').text() + '/' + document('.dbk .mm').text() + '/' + document('.bcrmb span').text().split('/')[2] + ' ' + document('.dbk .cLgry').text()).toISOString(),

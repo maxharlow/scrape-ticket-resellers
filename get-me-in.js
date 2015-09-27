@@ -18,8 +18,6 @@ var http = highland.wrapCallback((location, callback) => {
     retryMe(wrapper(location), callback)
 })
 
-var timestamp = new Date().toISOString()
-
 var pages = [
     'http://www.getmein.com/venues/wembley-stadium.html',
     'http://www.getmein.com/venues/twickenham-stadium.html',
@@ -44,7 +42,7 @@ var pages = [
 ]
 
 function dates(response) {
-    console.log('Running Get Me In at ' + timestamp + '...')
+    console.log('Get Me In: ' + new Date().toISOString() + ' - running ' + response.request.href + '...')
     var document = cheerio.load(response.body)
     return document('[data-click=event] .event a').get().map(row => 'http://' + response.request.host + cheerio(row).attr('href'))
 }
@@ -64,7 +62,7 @@ function listings(response) {
 		baseprice: listing.priceDisplay
 	    },
 	    also: {
-		timestamp: timestamp,
+		timestamp: new Date().toISOString(),
 		event: details.EventName,
 		eventVenue: details.Venue.trim(),
 		eventDate: details.ShowDate,

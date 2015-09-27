@@ -18,8 +18,6 @@ var http = highland.wrapCallback((location, callback) => {
     retryMe(wrapper(location), callback)
 })
 
-var timestamp = new Date().toISOString()
-
 var pages = [
     'https://www.stubhub.co.uk/wembley-stadium-tickets/',
     'https://www.stubhub.co.uk/twickenham-stadium-tickets/',
@@ -45,6 +43,7 @@ var pages = [
 ]
 
 function dates(response) {
+    console.log('Stubhub: ' + new Date().toISOString() + ' - running ' + response.request.href + '...')
     var document = cheerio.load(response.body)
     return document('.dataTable .eventName a').get().map(date => {
 	const location = cheerio(date).attr('href')
@@ -63,7 +62,7 @@ function listings(response) {
         return {
 	    uri: response.request.also + '?ticket_id=' + listing.id,
 	    also: {
-		timestamp: timestamp,
+		timestamp: new Date().toISOString(),
 		event: '-', // filled in after
 		eventVenue: '-', // filled in after
 		eventDate: '-', // filled in after
