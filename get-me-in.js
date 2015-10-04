@@ -19,26 +19,11 @@ var http = highland.wrapCallback((location, callback) => {
 })
 
 var pages = [
-    'http://www.getmein.com/venues/wembley-stadium.html',
-    'http://www.getmein.com/venues/twickenham-stadium.html',
-    'http://www.getmein.com/venues/millennium-stadium.html',
-    'http://www.getmein.com/venues/hyde-park.html',
-    'http://www.getmein.com/venues/the-o2.html',
-    'http://www.getmein.com/venues/manchester-arena.html',
-    'http://www.getmein.com/venues/first-direct-arena.html',
-    'http://www.getmein.com/venues/the-sse-arena-wembley.html',
-    'http://www.getmein.com/venues/motorpoint-arena-sheffield.html',
-    'http://www.getmein.com/venues/royal-albert-hall.html',
-    'http://www.getmein.com/venues/eventim-apollo.html',
-    'http://www.getmein.com/venues/carling-academy-brixton.html',
-    'http://www.getmein.com/venues/o2-academy-birmingham.html',
-    'http://www.getmein.com/venues/shepherds-bush-empire.html',
-    'http://www.getmein.com/venues/o2-apollo.html',
-    'http://www.getmein.com/venues/london-palladium.html',
-    'http://www.getmein.com/venues/royal-opera-house.html',
-    'http://www.getmein.com/venues/royal-festival-hall.html',
-    'http://www.getmein.com/venues/barbican-theatre-london.html',
-    'http://www.getmein.com/venues/coliseum-theatre.html'
+    'http://www.getmein.com/rock-and-pop/muse-2-tickets.html',
+    'http://www.getmein.com/ballet-and-dance/riverdance-tickets.html',
+    'http://www.getmein.com/rock-and-pop/rod-stewart-tickets.html',
+    'http://www.getmein.com/rock-and-pop/john-grant-tickets.html',
+    'http://www.getmein.com/dance-and-electronic/disclosure-tickets.html'
 ]
 
 function dates(response) {
