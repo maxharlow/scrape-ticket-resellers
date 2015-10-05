@@ -23,7 +23,8 @@ var pages = [
     'http://www.viagogo.co.uk/Theatre-Tickets/Ballet-and-Dance/Riverdance-Tickets',
     'http://www.viagogo.co.uk/Concert-Tickets/Rock-and-Pop/Rod-Stewart-Tickets',
     'http://www.viagogo.co.uk/Concert-Tickets/Alternative-and-Indie/John-Grant-Tickets',
-    'http://www.viagogo.co.uk/Concert-Tickets/Club-and-dance/Disclosure-Tickets'
+    'http://www.viagogo.co.uk/Concert-Tickets/Club-and-dance/Disclosure-Tickets',
+    'http://www.viagogo.co.uk/Concert-Tickets/Rock-and-Pop/Barry-Manilow-Tickets'
 ]
 
 function dates(response) {

@@ -23,7 +23,8 @@ var pages = [
     'http://www.seatwave.com/riverdance-tickets/season',
     'http://www.seatwave.com/rod-stewart-tickets/season',
     'http://www.seatwave.com/john-grant-tickets/season',
-    'http://www.seatwave.com/disclosure-tickets/season'
+    'http://www.seatwave.com/disclosure-tickets/season',
+    'http://www.seatwave.com/barry-manilow-tickets/season'
 ]
 
 function performances(response) {

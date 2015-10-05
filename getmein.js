@@ -23,7 +23,8 @@ var pages = [
     'http://www.getmein.com/ballet-and-dance/riverdance-tickets.html',
     'http://www.getmein.com/rock-and-pop/rod-stewart-tickets.html',
     'http://www.getmein.com/rock-and-pop/john-grant-tickets.html',
-    'http://www.getmein.com/dance-and-electronic/disclosure-tickets.html'
+    'http://www.getmein.com/dance-and-electronic/disclosure-tickets.html',
+    'http://www.getmein.com/rock-and-pop/barry-manilow-tickets.html'
 ]
 
 function dates(response) {
