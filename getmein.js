@@ -72,8 +72,8 @@ function purchase(response) {
 }
 
 const headers = [ 'timestamp', 'event', 'eventVenue', 'eventDate', 'eventOnSaleDate', 'id', 'zone', 'section', 'row', 'quantityTotal', 'quantityEligible', 'price' ]
-fs.closeSync(fs.openSync('get-me-in.csv', 'a')) // make sure it exists so it can be read
-csvParser(fs.readFileSync('get-me-in.csv'), { headers: headers }, (error, existing) => {
+fs.closeSync(fs.openSync('getmein.csv', 'a')) // make sure it exists so it can be read
+csvParser(fs.readFileSync('getmein.csv'), { headers: headers }, (error, existing) => {
     if (error) throw error
     const existingIDs = existing.map(e => e.id)
     highland(pages)
@@ -86,5 +86,5 @@ csvParser(fs.readFileSync('get-me-in.csv'), { headers: headers }, (error, existi
 	.filter(listing => existingIDs.indexOf(listing.id) < 0)
 	.errors(e => console.log('Error: ' + e.stack))
 	.through(csvWriter({ sendHeaders: false }))
-	.pipe(fs.createWriteStream('get-me-in.csv', { flags: 'a' }))    
+	.pipe(fs.createWriteStream('getmein.csv', { flags: 'a' }))    
 })
