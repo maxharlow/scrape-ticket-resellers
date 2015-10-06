@@ -49,8 +49,8 @@ function listings(response) {
     return document('tbody tr').get().map(listing => {
 	var listingData = cheerio.load(listing)
         return {
-	    uri: listingData('.js-buy-button').attr('href'),
-	    also: {
+	    // uri: listingData('.js-buy-button').attr('href'),
+	    // also: {
 		timestamp: new Date().toISOString(),
 		event: document('h1').text(),
 		eventVenue: document('.cMgry').text(),
@@ -64,19 +64,19 @@ function listings(response) {
 		quantityEligible: listingData('td select option').get().map(option => cheerio(option).val()).toString(),
 		price: listingData('td strong').text(),
 		faceValue: '-' // filled in after
-            }
+            // }
 	}
     })
 }
 
-function purchase(response) {
-    var document = cheerio.load(response.body)
-    var listing = response.request.also
-    if (!!response.request.href.match(/Abandon/g)) throw new Error('Abandoned - ' + document('h4').text())
-    if (document('.pipelinesidebar').text() === '')  listing.faceValue = '(unlisted)'
-    else listing.faceValue = document('.pipelinesidebar').text().trim().match(/\r\n(.*)/)[1]
-    return listing
-}
+// function purchase(response) {
+//     var document = cheerio.load(response.body)
+//     var listing = response.request.also
+//     if (!!response.request.href.match(/Abandon/g)) throw new Error('Abandoned - ' + document('h4').text())
+//     if (document('.pipelinesidebar').text() === '')  listing.faceValue = '(unlisted)'
+//     else listing.faceValue = document('.pipelinesidebar').text().trim().match(/\r\n(.*)/)[1]
+//     return listing
+// }
 
 const headers = [ 'timestamp', 'event', 'eventVenue', 'eventDate', 'eventOnSaleDate', 'id', 'zone', 'section', 'row', 'quantityTotal', 'quantityEligible', 'price' ]
 fs.closeSync(fs.openSync('viagogo.csv', 'a')) // make sure it exists so it can be read
@@ -90,8 +90,8 @@ csvParser(fs.readFileSync('viagogo.csv'), { headers: headers }, (error, existing
 	.flatMap(pagination)
 	.flatMap(http)
 	.flatMap(listings)
-	.flatMap(http)
-	.map(purchase)
+	// .flatMap(http)
+	// .map(purchase)
 	.filter(listing => existingIDs.indexOf(listing.id) < 0)
 	.errors(e => console.log('Error: ' + e.stack))
 	.through(csvWriter({ sendHeaders: false }))

@@ -39,15 +39,15 @@ function listings(response) {
     var data = JSON.parse(document('#ticket-listing-json').text()).listings.filter(listing => listing.type === 'Offer')
     return data.map(listing => {
         return {
-	    method: 'POST',
-	    url: 'http://' + response.request.host + listing.url,
-	    followAllRedirects: true,
-	    form: {
-		quantity: listing.inventoryLevel,
-		ticketid: listing.id,
-		baseprice: listing.priceDisplay
-	    },
-	    also: {
+	    // method: 'POST',
+	    // url: 'http://' + response.request.host + listing.url,
+	    // followAllRedirects: true,
+	    // form: {
+	    // 	quantity: listing.inventoryLevel,
+	    // 	ticketid: listing.id,
+	    // 	baseprice: listing.priceDisplay
+	    // },
+	    // also: {
 		timestamp: new Date().toISOString(),
 		event: details.EventName,
 		eventVenue: details.Venue.trim(),
@@ -61,16 +61,16 @@ function listings(response) {
 		quantityEligible: listing.eligibleQuantity.toString(),
 		price: listing.priceDisplayCurrency + listing.priceDisplay,
 		faceValue: '-' // filled in after
-            }
+            // }
 	}
     })
 }
 
-function purchase(response) {
-    var listing = response.request.also
-    listing.faceValue = response.body.match(/The original face value price of each ticket is (.*) as indicated by the seller/)[1]
-    return listing
-}
+// function purchase(response) {
+//     var listing = response.request.also
+//     listing.faceValue = response.body.match(/The original face value price of each ticket is (.*) as indicated by the seller/)[1]
+//     return listing
+// }
 
 const headers = [ 'timestamp', 'event', 'eventVenue', 'eventDate', 'eventOnSaleDate', 'id', 'zone', 'section', 'row', 'quantityTotal', 'quantityEligible', 'price' ]
 fs.closeSync(fs.openSync('getmein.csv', 'a')) // make sure it exists so it can be read
@@ -82,8 +82,8 @@ csvParser(fs.readFileSync('getmein.csv'), { headers: headers }, (error, existing
 	.flatMap(dates)
 	.flatMap(http)
 	.flatMap(listings)
-	.flatMap(http)
-	.map(purchase)
+	// .flatMap(http)
+	// .map(purchase)
 	.filter(listing => existingIDs.indexOf(listing.id) < 0)
 	.errors(e => console.log('Error: ' + e.stack))
 	.through(csvWriter({ sendHeaders: false }))
