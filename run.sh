@@ -7,8 +7,8 @@ case $1 in
     'stop' )
         crontab -l | grep -v $(basename $0) | crontab - ;;
     *)
-        node getmein &> getmein.log &
-	node viagogo &> viagogo.log &
-	node stubhub &> stubhub.log &
-	# node seatwave &> seatwave.log &
+        node getmein &>> getmein.log &
+        node viagogo &>> viagogo.log &
+        node seatwave &>> seatwave.log &
+        # node stubhub &>> stubhub.log &
 esac

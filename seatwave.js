@@ -53,7 +53,7 @@ function listings(response) {
 	    eventVenue: response.request.also.eventVenue,
 	    eventDate: response.request.also.eventDate,
 	    eventOnSaleDate: '(not listed)',
-	    id: listing.Id,
+	    id: '.' + listing.Id,
 	    zone: listing.TypeName,
 	    section: listing.SectionAndRow,
 	    row: '(included in section)',
